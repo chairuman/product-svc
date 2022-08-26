@@ -1,0 +1,544 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "version": "1.0.0",
+      "title": "Product Service",
+      "description": "API CRUD Product",
+      "license": {
+        "name": "MIT",
+        "url": "https://opensource.org/licenses/MIT"
+      }
+    },
+    "host": "localhost:5000",
+    "basePath": "/api",
+    "schemes": ["http"],
+    "securityDefinitions": {
+        "HTTPBearer": {
+          "name": "Authorization",
+          "in": "header",
+          "type": "apiKey",
+          "description": "JWT Authorization header"
+        }
+    },
+    "consumes": ["application/json"],
+    "produces": ["application/json"],
+    "paths": {
+        "/login": {
+            "post": {
+                "summary": "Login",
+                "description": "Login",
+                "tags": ["Auth"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "login payload",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/Login"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/ValidResponse[Login]"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/register": {
+            "post": {
+                "summary": "Register",
+                "description": "Register",
+                "tags": ["Auth"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "register payload",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/Register"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/ValidResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                }
+            }
+        },
+        "/products": {
+            "post": {
+                "summary": "Create Product",
+                "description": "Create Product",
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "create product payload",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/CreateProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/ValidResponse[CreateProduct]"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [ {"HTTPBearer": []} ]
+            },
+            "get": {
+                "summary": "List Products",
+                "description": "List All Product",
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "per_page",
+                        "description": "Total data per page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    },
+                    {
+                        "in": "query",
+                        "name": "page",
+                        "description": "Current Page",
+                        "required": false,
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/ListProduct"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [ {"HTTPBearer": []} ]
+            }
+        },
+        "/products/{id}": {
+            "put": {
+                "summary": "Update Product",
+                "description": "Update Product",
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product id that needs to be update",
+                        "required": true,
+                        "type": "integer"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "description": "update product payload",
+                        "required": true,
+                        "schema": {
+                            "type": "object",
+                            "$ref": "#/definitions/CreateProduct"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/ValidResponse[CreateProduct]"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [ {"HTTPBearer": []} ]
+            },
+            "get": {
+                "summary": "Detail Product",
+                "description": "Detail Product",
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product ID",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/ValidResponse[CreateProduct]"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [ {"HTTPBearer": []} ]
+            },
+            "delete": {
+                "summary": "Delete Product",
+                "description": "Delete Product",
+                "tags": ["Products"],
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "description": "Product id that needs to be delete",
+                        "required": true,
+                        "type": "integer"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "success",
+                        "schema": {
+                            "$ref": "#/definitions/ValidResponse"
+                        }
+                    },
+                    "400": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "404": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "error",
+                        "schema": {
+                            "$ref": "#/definitions/InvalidResponse"
+                        }
+                    }
+                },
+                "security": [ {"HTTPBearer": []} ]
+            }
+        }
+    },
+    "definitions": {
+        "Login": {
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "User Email"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "User Password"
+                }
+            }
+        },
+        "Register": {
+            "properties": {
+                "email": {
+                    "type": "string",
+                    "description": "User Email"
+                },
+                "first_name": {
+                    "type": "string",
+                    "description": "First Name"
+                },
+                "last_name": {
+                    "type": "string",
+                    "description": "Last Name"
+                },
+                "password": {
+                    "type": "string",
+                    "description": "User Password"
+                }
+            }
+        },
+        "ListProduct": {
+            "properties": {
+                "status_code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "array",
+                    "items": {
+                        "properties": {
+                            "id": {
+                                "type": "string"
+                            },
+                            "nama": {
+                                "type": "string"
+                            },
+                            "kode": {
+                                "type": "string"
+                            },
+                            "quantity": {
+                                "type": "integer"
+                            },
+                            "image": {
+                                "type": "string"
+                            },
+                            "createdAt": {
+                                "type": "string"
+                            },
+                            "updatedAt": {
+                                "type": "string"
+                            }
+                        }
+                    }
+                },
+                "pagination": {
+                    "type": "object",
+                    "properties": {
+                        "total": {
+                            "type": "integer"
+                        },
+                        "total_data": {
+                            "type": "integer"
+                        },
+                        "current_page": {
+                            "type": "integer"
+                        },
+                        "next_page": {
+                            "type": "integer"
+                        },
+                        "prev_page": {
+                            "type": "integer"
+                        },
+                        "has_more": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "CreateProduct": {
+            "properties": {
+                "name": {
+                    "type": "string"
+                },
+                "kode": {
+                    "type": "string"
+                },
+                "quantity": {
+                    "type": "integer"
+                },
+                "image": {
+                    "type": "string"
+                }
+            }
+        },
+        "InvalidResponse": {
+            "properties": {
+                "status_code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                }
+            }
+        },
+        "ValidResponse": {
+            "properties": {
+                "status_code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object"
+                }
+            }
+        },
+        "ValidResponse[Login]": {
+            "properties": {
+                "status_code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "email": {
+                            "type": "string"
+                        },
+                        "access_token": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "ValidResponse[CreateProduct]": {
+            "properties": {
+                "status_code": {
+                    "type": "integer"
+                },
+                "message": {
+                    "type": "string"
+                },
+                "data": {
+                    "type": "object",
+                    "properties": {
+                        "id": {
+                            "type": "string"
+                        },
+                        "nama": {
+                            "type": "string"
+                        },
+                        "kode": {
+                            "type": "string"
+                        },
+                        "quantity": {
+                            "type": "integer"
+                        },
+                        "image": {
+                            "type": "string"
+                        },
+                        "createdAt": {
+                            "type": "string"
+                        },
+                        "updatedAt": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        }
+    }
+  }
